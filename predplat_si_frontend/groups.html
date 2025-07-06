@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Skupiny</title>
+</head>
+<body>
+    <h2>Skupiny</h2>
+    <button onclick="loadGroups()">Načítať skupiny</button>
+    <ul id="groupsList"></ul>
+
+    <script>
+    function loadGroups() {
+        fetch('http://localhost:8000/groups')
+        .then(res => res.json())
+        .then(data => {
+            const list = document.getElementById('groupsList');
+            list.innerHTML = '';
+            data.groups.forEach(group => {
+                const item = document.createElement('li');
+                item.innerText = JSON.stringify(group);
+                list.appendChild(item);
+            });
+        })
+        .catch(err => console.error(err));
+    }
+    </script>
+</body>
+</html>

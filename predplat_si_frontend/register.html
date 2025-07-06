@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registrácia</title>
+</head>
+<body>
+    <h2>Registrácia</h2>
+    <form onsubmit="register(event)">
+        <input type="text" id="email" placeholder="Email" required><br>
+        <input type="password" id="password" placeholder="Heslo" required><br>
+        <button type="submit">Registrovať</button>
+    </form>
+    <script>
+    function register(event) {
+        event.preventDefault();
+        fetch('http://localhost:8000/users/register', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value
+            })
+        })
+        .then(res => res.json())
+        .then(data => alert(JSON.stringify(data)))
+        .catch(err => console.error(err));
+    }
+    </script>
+</body>
+</html>
